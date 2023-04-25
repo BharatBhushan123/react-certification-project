@@ -1,50 +1,28 @@
 import React, { Component } from "react";
-import { exportComponentAsPNG } from "react-component-export-image";
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
+
+import './App.css'
+
+import cert from "./cert.jpg"
+import cert2 from "./cert2.jpg"
+import cert3 from "./cert3.jpg"
+import Home from "./components/Home";
 import Navbar from "./components/Navbar";
+import Cer from "./components/Cer";
 
-class App extends Component {
-  certificateWrapper = React.createRef();
-  state = {
-    Name: ""
-  };
-  render() {
-    return (<>
-      <Navbar/>
-     
-      <div className="App">
-        <div className="Meta">
-          <h1>ACM Certificates</h1>
-          <p>Please enter your name.</p>
-          <input
-            type="text"
-            placeholder="Please enter your name..."
-            value={this.state.Name}
-            onChange={(e) => {
-              this.setState({ Name: e.target.value });
-            }}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              exportComponentAsPNG(this.certificateWrapper, {
-                html2CanvasOptions: { backgroundColor: null }
-              });
-            }}
-          >
-            Download
-          </button>
-        </div>
-
-        <div id="downloadWrapper" ref={this.certificateWrapper}>
-          <div id="certificateWrapper">
-            <p>{this.state.Name}</p>
-            <img src="https://i.imgur.com/Toz3PUWh.png" alt="Certificate" />
-          </div>
-        </div>
-      </div>
-      </>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <Router>
+      <Routes>
+        <Route element = {<Home cert={cert} cert2={cert2} cert3={cert3}/>} path="/"></Route>
+        <Route element = {<Cer image={cert}/>} path="/template-1"></Route>
+        <Route element = {<Cer image={cert2}/>} path="/template-2"></Route>
+        <Route element = {<Cer image={cert3}/>} path="/template-3"></Route>
+      </Routes>
+    </Router>
+    </div>
+  )
 }
 
-export default App;
+export default App
